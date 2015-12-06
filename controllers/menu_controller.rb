@@ -14,39 +14,59 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "5 - View Entry Number n "
+    puts "6 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
     puts "You picked #{selection}"
 
     case selection
-    when 1
-      system "clear"
-      view_all_entries
-      main_menu
-    when 2
-      system "clear"
-      create_entry
-      main_menu
-    when 3
-      system "clear"
-      search_entries
-      main_menu
-    when 4
-      system "clear"
-      read_csv
-      main_menu
-    when 5
-      puts "Good-Bye!"
+      when 1
+        system "clear"
+        view_all_entries
+        main_menu
+      when 2
+        system "clear"
+        create_entry
+        main_menu
+      when 3
+        system "clear"
+        search_entries
+        main_menu
+      when 4
+        system "clear"
+        read_csv
+        main_menu
+      when 5
+        system "clear"
+        entry_n_submenu
+        main_menu
+      when 6
+        puts "Good-Bye!"
 
-      exit(0)
-    else
+        exit(0)
+      else
+        system "clear"
+        puts "Sorry, that is not a valid input"
+        main_menu
+      end
+    end
+
+
+  def entry_n_submenu
+    print "Enter Entry number: "
+    selection = gets.chomp.to_i
+
+    if selection < @address_book.entries.count
+      puts @address_book.entries{selection}
+      puts "Press enter to return to the main menu"
+      gets.chomp
       system "clear"
-      puts "Sorry, that is not a valid input"
-      main_menu
+    else
+      puts "#{selection} is not a valid input"
+    end
   end
-end
 
   def entry_submenu(entry)
     puts "n - next entry"
@@ -67,10 +87,9 @@ end
       system "clear"
       puts "#{selection} is not a valid input"
       entries_submenu(entry)
+    end
   end
 
-
-  end
   def view_all_entries
     @address_book.entries.each do |entry|
       system "clear"
@@ -79,7 +98,7 @@ end
       entry_submenu(entry)
     end
     system "clear"
-    puts "end of entries"
+    puts "End of entries"
   end
 
   def create_entry
@@ -93,7 +112,7 @@ end
     print "Email: "
     email = gets.chomp
 
-    @address_book.add_entry(name,phone,email)
+    @address_book.add_entry(name, phone, email)
 
     system "clear"
     puts "New entry created"
