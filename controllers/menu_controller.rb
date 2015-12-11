@@ -59,12 +59,13 @@ class MenuController
     selection = gets.chomp.to_i
 
     if selection < @address_book.entries.count
-      puts @address_book.entries{selection}
+      puts @address_book.entries[selection]
       puts "Press enter to return to the main menu"
       gets.chomp
       system "clear"
     else
       puts "#{selection} is not a valid input"
+      entry_n_submenu
     end
   end
 
